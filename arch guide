@@ -11,7 +11,7 @@ swapon /dev/sda2
 mount /dev/sda1 /mnt
 pacman -Sy reflector
 reflector --verbose --latest 15 --sort rate --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel linux-lts linux-lts-headers linux linux-headers linux-firmware dialog network-manager netctl wpa_supplicant wireless_tools xorg plasma-desktop sddm chromium firefox terminator
+pacstrap /mnt base base-devel linux-lts linux-lts-headers linux linux-headers linux-firmware dialog network-manager netctl wpa_supplicant wireless_tools xorg plasma-desktop sddm chromium firefox terminator plasma-nm
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
@@ -27,3 +27,13 @@ nano /etc/hosts (127.0.0.1	localhost
  mkinitcpio -p linux
  passwd (1234)
  pacman -S grub
+grub-install --target=i386-pc /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+useradd -m -G wheel,storage,power -s /bin/bash Mario
+passwd Mario (1234)
+systemctl enable sddm
+systemctl enable NetworkManager.service
+nano /etc/sudoers (scroll to uncomment to allow members of group wheel to execute any command and uncomment %wheel all=(all) all)
+exit
+umount -R /mnt
+reboot
