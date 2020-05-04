@@ -1,0 +1,29 @@
+rfkill list
+rfkill unblock all
+wifi-menu
+ping www.google.com
+loadkeys us
+timedatectl set-ntp true
+cfdisk /dev/sda
+mkfs.ext4 /dev/sda1
+mkswap /dev/sda2
+swapon /dev/sda2
+mount /dev/sda1 /mnt
+pacman -Sy reflector
+reflector --verbose --latest 15 --sort rate --save /etc/pacman.d/mirrorlist
+pacstrap /mnt base base-devel linux-lts linux-lts-headers linux linux-headers linux-firmware dialog network-manager netctl wpa_supplicant wireless_tools xorg plasma-desktop sddm chromium firefox terminator
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
+hwclock --systohc
+nano /etc/locale.gen (scroll down and remove the # on en_US.UTF-8 UTF-8)
+locale-gen
+nano /etc/locale.conf (LANG=en_US.UTF-8)
+nano /etc/vconsole.conf (KEYMAP=us)
+nano /etc/hostname (arch)
+nano /etc/hosts (127.0.0.1	localhost
+                 ::1		    localhost
+                 127.0.1.1	arch.localdomain	arch)
+ mkinitcpio -p linux
+ passwd (1234)
+ 
