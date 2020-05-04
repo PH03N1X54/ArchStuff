@@ -11,7 +11,7 @@ swapon /dev/sda2
 mount /dev/sda1 /mnt
 pacman -Sy reflector
 reflector --verbose --latest 15 --sort rate --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel linux-lts linux-lts-headers linux linux-headers linux-firmware dialog network-manager netctl wpa_supplicant wireless_tools xorg plasma-desktop sddm chromium firefox terminator plasma-nm
+pacstrap /mnt base base-devel linux-lts linux-lts-headers linux linux-headers linux-firmware dialog network-manager netctl wpa_supplicant wireless_tools xorg plasma (plasma-desktop) sddm chromium firefox terminator plasma-nm
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
